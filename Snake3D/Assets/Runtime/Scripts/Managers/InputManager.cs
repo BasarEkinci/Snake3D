@@ -12,6 +12,7 @@ namespace Snake3D.Runtime.Managers
             _playerInputs.Player.Enable();
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         public float GetMovementInput()
         {
             float inputVector = _playerInputs.Player.Movement.ReadValue<float>();

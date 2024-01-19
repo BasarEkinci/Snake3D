@@ -1,4 +1,3 @@
-using System;
 using Snake3D.Runtime.Managers;
 using UnityEngine;
 
@@ -8,24 +7,20 @@ namespace Runtime.Scripts.Controllers.Player
     {
         [SerializeField] private InputManager inputManager;
 
-
+        [Header("Movement Settings")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private float rotateSpeed;
 
-        private void Update()
+        private float _inputDirection;
+        float _moveDirection;
+        public void HandlePlayerRotate()
         {
-            HandlePlayerRotate();
-            HandlePlayerMove();
-        }
-
-        private void HandlePlayerRotate()
-        {
-            float inputDirection = inputManager.GetMovementInput();
-            float moveDirection = inputDirection;
-            transform.Rotate(Vector3.up * (moveDirection * rotateSpeed * Time.deltaTime));
+            _inputDirection = inputManager.GetMovementInput();
+            _moveDirection = _inputDirection;
+            transform.Rotate(Vector3.up * (_moveDirection * rotateSpeed * Time.deltaTime));
         }
         
-        private void HandlePlayerMove()
+        public void HandlePlayerMove()
         {
             transform.position += transform.forward * (moveSpeed * Time.deltaTime);
         }
