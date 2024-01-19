@@ -12,10 +12,9 @@ namespace Snake3D.Runtime.Managers
             _playerInputs.Player.Enable();
         }
         
-        public Vector2 GetMovementInput()
+        public float GetMovementInput()
         {
-            Vector2 inputVector = _playerInputs.Player.Movement.ReadValue<Vector2>();
-            inputVector = inputVector.normalized;
+            float inputVector = _playerInputs.Player.Movement.ReadValue<float>();
             return inputVector;
         }
     }    
