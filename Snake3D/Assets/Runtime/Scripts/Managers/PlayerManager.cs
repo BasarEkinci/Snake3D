@@ -31,12 +31,12 @@ namespace Snake3D.Runtime.Managers
 
         private void OnPlayerCrush()
         {
-            throw new NotImplementedException();
+            Debug.Log("Player Crushed");
         }
 
         private void OnCollectFood()
         {
-            throw new NotImplementedException();
+            Debug.Log("Food Collected");
         }
     }
 }
