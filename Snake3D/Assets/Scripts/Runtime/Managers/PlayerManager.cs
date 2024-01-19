@@ -1,5 +1,6 @@
 using System;
 using Runtime.Scripts.Controllers.Player;
+using Snake3D.Runtime.Controllers;
 using Snake3D.Runtime.Signals;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Snake3D.Runtime.Managers
     public class PlayerManager : MonoBehaviour
     {
         [SerializeField] private PlayerMovementController movementController;
+        [SerializeField] private PlayerTailController tailController;
 
 
         private void OnEnable()
@@ -26,7 +28,7 @@ namespace Snake3D.Runtime.Managers
         {
             movementController.HandlePlayerRotate();
             movementController.HandlePlayerMove();
-        
+            tailController.SetTailPosition();
         }
 
         private void OnPlayerCrush()
@@ -36,7 +38,7 @@ namespace Snake3D.Runtime.Managers
 
         private void OnCollectFood()
         {
-            Debug.Log("Food Collected");
+            tailController.Grow();
         }
     }
 }

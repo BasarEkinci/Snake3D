@@ -14,7 +14,10 @@ namespace Snake3D.Runtime.Controllers
             else if (other.CompareTag("Wall"))
             {
                 PlayerSignals.Instance.OnPlayerCrush?.Invoke();
-                Debug.Log("Player Crushed");
+            }
+            else if (other.CompareTag("Tail"))
+            {
+                PlayerSignals.Instance.OnPlayerCrush?.Invoke();                
             }
         }
     }    

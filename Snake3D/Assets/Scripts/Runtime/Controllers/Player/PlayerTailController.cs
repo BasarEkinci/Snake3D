@@ -7,6 +7,7 @@ namespace Snake3D.Runtime.Controllers
     {
         [SerializeField] private GameObject tailPrefab;
         [SerializeField] private int gapBetweenParts = 1;
+        [SerializeField] private float bodySpeed = 8;
         
         private List<GameObject> _bodyParts = new List<GameObject>();
         private List<Vector3> _positionHistory = new List<Vector3>();
@@ -24,7 +25,9 @@ namespace Snake3D.Runtime.Controllers
             foreach (GameObject tail in _bodyParts)
             {
                 Vector3 point = _positionHistory[Mathf.Min(index * gapBetweenParts, _positionHistory.Count - 1)];
-                tail.transform.position = point;
+                Vector3 moveDirection = point - tail.transform.position;
+                tail.transform.position += moveDirection * (Time.deltaTime * bodySpeed);
+                tail.transform.LookAt(point);
                 index++;
             }
         }
