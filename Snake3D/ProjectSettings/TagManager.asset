@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tail
   - Bait
+  - Wall
   layers:
   - Default
   - TransparentFX
