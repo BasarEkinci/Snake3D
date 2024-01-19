@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08ea9ba20eb4d27a6d69aa7f165c1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectParticle: {fileID: 8693013623828112348, guid: 2254b0cb98b9445c4a173a85caff3609,
+    type: 3}
   minX: -8
   maxX: 8
   minZ: -8
