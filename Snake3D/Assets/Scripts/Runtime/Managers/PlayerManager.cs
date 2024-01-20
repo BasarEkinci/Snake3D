@@ -32,7 +32,7 @@ namespace Snake3D.Runtime.Managers
 
         private void Start()
         {
-            _playerStartPosition = new Vector3(0,1.3f,0);
+            _playerStartPosition = new Vector3(0,1f,0);
             _canMove = false;
         }
 
