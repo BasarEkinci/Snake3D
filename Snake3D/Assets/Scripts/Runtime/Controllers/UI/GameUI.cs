@@ -8,23 +8,74 @@ namespace Snake3D.Runtime.Controllers
     public class GameUI : MonoBehaviour
     {
         [SerializeField] private TextMeshPro scoreText;
+        [SerializeField] private TextMeshPro highScoreText;
+        [SerializeField] private TextMeshPro gameOverText;
+        [SerializeField] private TextMeshPro pauseText;
 
-        private int score = 0;
+        private int _score = 0;
+        private int _highScore = 0;
+        
+        private bool _isGameOver;
         
         private void OnEnable()
         {
             PlayerSignals.Instance.OnCollectFood += OnCollectFood;
+            GameSignals.Instance.OnGameOver += OnGameOver;
+            GameSignals.Instance.OnGamePause += OnGamePause;
+            GameSignals.Instance.OnGameResume += OnGameResume;
+            GameSignals.Instance.OnGameRestart += OnGameRestart;
+        }
+
+        private void Start()
+        {
+            pauseText.gameObject.SetActive(false);
+            gameOverText.gameObject.SetActive(false);
+            _isGameOver = false;
         }
 
         private void OnDisable()
         {
             PlayerSignals.Instance.OnCollectFood -= OnCollectFood;
+            GameSignals.Instance.OnGameOver -= OnGameOver;
+            GameSignals.Instance.OnGamePause -= OnGamePause;
+            GameSignals.Instance.OnGameResume -= OnGameResume;
+            GameSignals.Instance.OnGameRestart -= OnGameRestart;
+        }
+
+        private void OnGameRestart()
+        {
+            gameOverText.gameObject.SetActive(false);
+            _isGameOver = false;
+            _score = 0;
+            scoreText.text = "SCORE:" + _score;
+        }
+
+        private void OnGameResume()
+        {
+            pauseText.gameObject.SetActive(false);
+        }
+
+        private void OnGamePause()
+        {
+            if (_isGameOver) return;
+            pauseText.gameObject.SetActive(true);
+        }
+
+        private void OnGameOver()
+        {
+            gameOverText.gameObject.SetActive(true);
+            _isGameOver = true;
         }
 
         private void OnCollectFood()
         {
-            score++;
-            scoreText.text = "SCORE\n" + score;
+            _score++;
+            scoreText.text = "SCORE:" + _score;
+            if (_score > _highScore)
+            {
+                _highScore = _score;
+                highScoreText.text = "HIGH SCORE:" + _highScore;
+            }
         }
     }    
 }

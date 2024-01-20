@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Snake3D.Runtime.Managers
 {
@@ -18,6 +19,7 @@ namespace Snake3D.Runtime.Managers
             float inputVector = _playerInputs.Player.Movement.ReadValue<float>();
             return inputVector;
         }
+        
     }    
 }
 

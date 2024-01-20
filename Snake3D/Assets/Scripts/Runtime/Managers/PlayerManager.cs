@@ -1,4 +1,3 @@
-using System;
 using Runtime.Scripts.Controllers.Player;
 using Snake3D.Runtime.Controllers;
 using Snake3D.Runtime.Signals;
@@ -16,27 +15,37 @@ namespace Snake3D.Runtime.Managers
         [Header("Movement Values")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private float rotateSpeed;
+        
+        private Vector3 _playerStartPosition;
+        private bool _isGameOver;
+        private bool _canMove = true;
 
         private void OnEnable()
         {
             PlayerSignals.Instance.OnCollectFood += OnCollectFood;
             PlayerSignals.Instance.OnPlayerCrush += OnPlayerCrush;
+            GameSignals.Instance.OnGameRestart += OnGameRestart;
+            GameSignals.Instance.OnGamePause += OnGamePause;
+            GameSignals.Instance.OnGameResume += OnGameResume;
         }
 
         private void Start()
         {
-            tailController.Grow(tailPrefab);
+            _playerStartPosition = new Vector3(0,1.3f,0);
         }
 
         private void OnDisable()
         {
             PlayerSignals.Instance.OnCollectFood -= OnCollectFood;
             PlayerSignals.Instance.OnPlayerCrush -= OnPlayerCrush;
+            GameSignals.Instance.OnGameRestart -= OnGameRestart;
+            GameSignals.Instance.OnGamePause -= OnGamePause;
+            GameSignals.Instance.OnGameResume -= OnGameResume;
         }
-
+        
         private void Update()
         {
-            if(moveSpeed <= 0) return;
+            if(_isGameOver || !_canMove) return;
             movementController.HandlePlayerRotate(rotateSpeed);
             movementController.HandlePlayerMove(moveSpeed);
             tailController.SetTailPosition();
@@ -44,13 +53,32 @@ namespace Snake3D.Runtime.Managers
 
         private void OnPlayerCrush()
         {
-            moveSpeed = 0;
+            _isGameOver = true;
+            GameSignals.Instance.OnGameOver?.Invoke();
             tailController.Shrink();
         }
 
         private void OnCollectFood()
         {
             tailController.Grow(tailPrefab);
+        }
+        
+        private void OnGameRestart()
+        {
+            if(!_isGameOver) return;
+            transform.position = _playerStartPosition;
+            _isGameOver = false;
+            _canMove = true;
+        }
+        
+        private void OnGameResume()
+        {
+            _canMove = true;
+        }
+
+        private void OnGamePause()
+        {
+            _canMove = false;
         }
     }
 }
