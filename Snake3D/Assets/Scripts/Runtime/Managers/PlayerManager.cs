@@ -27,6 +27,7 @@ namespace Snake3D.Runtime.Managers
             GameSignals.Instance.OnGameRestart += OnGameRestart;
             GameSignals.Instance.OnGamePause += OnGamePause;
             GameSignals.Instance.OnGameResume += OnGameResume;
+            GameSignals.Instance.OnGameStart += OnGameStart;
         }
 
         private void Start()
@@ -41,8 +42,8 @@ namespace Snake3D.Runtime.Managers
             GameSignals.Instance.OnGameRestart -= OnGameRestart;
             GameSignals.Instance.OnGamePause -= OnGamePause;
             GameSignals.Instance.OnGameResume -= OnGameResume;
+            GameSignals.Instance.OnGameStart -= OnGameStart;
         }
-        
         private void Update()
         {
             if(_isGameOver || !_canMove) return;
@@ -62,20 +63,22 @@ namespace Snake3D.Runtime.Managers
         {
             tailController.Grow(tailPrefab);
         }
-        
+        private void OnGameStart()
+        {
+            _canMove = true;
+        }
         private void OnGameRestart()
         {
             if(!_isGameOver) return;
             transform.position = _playerStartPosition;
             _isGameOver = false;
-            _canMove = true;
+            _canMove = false;
         }
         
         private void OnGameResume()
         {
             _canMove = true;
         }
-
         private void OnGamePause()
         {
             _canMove = false;

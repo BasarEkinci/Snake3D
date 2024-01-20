@@ -1,4 +1,3 @@
-using System;
 using Snake3D.Runtime.Signals;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,6 +8,7 @@ namespace Snake3D.Runtime.Managers
     {
         private PlayerInputs _playerInputs;
         private bool _isGamePaused;
+        private bool _isGameStarted = false;
 
         private void Awake()
         {
@@ -16,6 +16,16 @@ namespace Snake3D.Runtime.Managers
             _playerInputs.Game.Enable();
             _playerInputs.Game.PlayPause.performed += OnPauseGame;
             _playerInputs.Game.Restart.performed += OnRestartGame;
+            _playerInputs.Game.Start.performed += OnStartGame;
+        }
+
+        private void OnStartGame(InputAction.CallbackContext context)
+        {
+            if (context.ReadValueAsButton() && !_isGameStarted)
+            {
+                GameSignals.Instance.OnGameStart?.Invoke();
+                _isGameStarted = true;
+            }
         }
 
         private void OnRestartGame(InputAction.CallbackContext context)

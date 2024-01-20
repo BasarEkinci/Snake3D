@@ -127,6 +127,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""da610253-18fe-4a1a-9c4e-95d90bf081e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -151,6 +160,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Restart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""029b4b1e-5055-43e3-aee1-afe8bb32ba61"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0921e4db-72e6-4d27-8bdb-6847d54b52a7"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +195,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_PlayPause = m_Game.FindAction("Play/Pause", throwIfNotFound: true);
         m_Game_Restart = m_Game.FindAction("Restart", throwIfNotFound: true);
+        m_Game_Start = m_Game.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,12 +305,14 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
     private readonly InputAction m_Game_PlayPause;
     private readonly InputAction m_Game_Restart;
+    private readonly InputAction m_Game_Start;
     public struct GameActions
     {
         private @PlayerInputs m_Wrapper;
         public GameActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlayPause => m_Wrapper.m_Game_PlayPause;
         public InputAction @Restart => m_Wrapper.m_Game_Restart;
+        public InputAction @Start => m_Wrapper.m_Game_Start;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -294,6 +328,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @Start.started += instance.OnStart;
+            @Start.performed += instance.OnStart;
+            @Start.canceled += instance.OnStart;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -304,6 +341,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @Start.started -= instance.OnStart;
+            @Start.performed -= instance.OnStart;
+            @Start.canceled -= instance.OnStart;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -329,5 +369,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     {
         void OnPlayPause(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

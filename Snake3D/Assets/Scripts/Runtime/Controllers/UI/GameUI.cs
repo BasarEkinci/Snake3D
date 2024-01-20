@@ -11,6 +11,7 @@ namespace Snake3D.Runtime.Controllers
         [SerializeField] private TextMeshPro highScoreText;
         [SerializeField] private TextMeshPro gameOverText;
         [SerializeField] private TextMeshPro pauseText;
+        [SerializeField] private TextMeshPro startText;
 
         private int _score = 0;
         private int _highScore = 0;
@@ -24,12 +25,14 @@ namespace Snake3D.Runtime.Controllers
             GameSignals.Instance.OnGamePause += OnGamePause;
             GameSignals.Instance.OnGameResume += OnGameResume;
             GameSignals.Instance.OnGameRestart += OnGameRestart;
+            GameSignals.Instance.OnGameStart += OnGameStart;
         }
 
         private void Start()
         {
             pauseText.gameObject.SetActive(false);
             gameOverText.gameObject.SetActive(false);
+            startText.gameObject.SetActive(true);
             _isGameOver = false;
         }
 
@@ -40,14 +43,22 @@ namespace Snake3D.Runtime.Controllers
             GameSignals.Instance.OnGamePause -= OnGamePause;
             GameSignals.Instance.OnGameResume -= OnGameResume;
             GameSignals.Instance.OnGameRestart -= OnGameRestart;
+            GameSignals.Instance.OnGameStart -= OnGameStart;
         }
-
         private void OnGameRestart()
         {
             gameOverText.gameObject.SetActive(false);
+            startText.gameObject.SetActive(true);
             _isGameOver = false;
             _score = 0;
             scoreText.text = "SCORE:" + _score;
+        }
+        
+        
+        
+        private void OnGameStart()
+        {
+            startText.gameObject.SetActive(false);
         }
 
         private void OnGameResume()
