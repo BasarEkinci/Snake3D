@@ -8,7 +8,7 @@ namespace Snake3D.Runtime.Managers
     {
         private PlayerInputs _playerInputs;
         private bool _isGamePaused;
-        private bool _isGameStarted = false;
+        private bool _isGameStarted;
 
         private void Awake()
         {
@@ -19,6 +19,22 @@ namespace Snake3D.Runtime.Managers
             _playerInputs.Game.Start.performed += OnStartGame;
         }
 
+        private void OnEnable()
+        {
+            GameSignals.Instance.OnGameOver += OnGameOver;
+        }
+        
+        private void Start()
+        {
+            _isGamePaused = false;
+            _isGameStarted = false;
+        }
+
+        private void OnDisable()
+        {
+            GameSignals.Instance.OnGameOver -= OnGameOver;
+        }
+        
         private void OnStartGame(InputAction.CallbackContext context)
         {
             if (context.ReadValueAsButton() && !_isGameStarted)
@@ -31,34 +47,30 @@ namespace Snake3D.Runtime.Managers
         private void OnRestartGame(InputAction.CallbackContext context)
         {
             if (context.ReadValueAsButton())
-            {
                 GameSignals.Instance.OnGameRestart?.Invoke();
-                Debug.Log("Game Restarted");
-            }
+            
         }
-
-        private void Start()
-        {
-            _isGamePaused = false;
-        }
-
+        
         private void OnPauseGame(InputAction.CallbackContext context)
         {
             if (context.ReadValueAsButton())
             {
                 if (_isGamePaused)
                 {
-                    Debug.Log("Game Resumed");
                     GameSignals.Instance.OnGameResume?.Invoke();
                     _isGamePaused = false;
                 }
                 else
                 {
-                    Debug.Log("Game Paused");
                     GameSignals.Instance.OnGamePause?.Invoke();
                     _isGamePaused = true;
                 }
             }
+        }
+        
+        private void OnGameOver()
+        {
+            _isGameStarted = false;
         }
     }
 }
