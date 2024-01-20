@@ -1,4 +1,3 @@
-using System;
 using Snake3D.Runtime.Signals;
 using TMPro;
 using UnityEngine;
@@ -53,8 +52,6 @@ namespace Snake3D.Runtime.Controllers
             _score = 0;
             scoreText.text = "SCORE:" + _score;
         }
-        
-        
         
         private void OnGameStart()
         {

@@ -55,6 +55,7 @@ namespace Snake3D.Runtime.Managers
         {
             if (context.ReadValueAsButton())
             {
+                if(!_isGameStarted) return;
                 if (_isGamePaused)
                 {
                     GameSignals.Instance.OnGameResume?.Invoke();
