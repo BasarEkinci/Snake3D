@@ -47,7 +47,7 @@ namespace Snake3D.Runtime.Managers
 
         private void OnRestartGame(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton())
+            if (context.ReadValueAsButton() && _isGameOver)
             {
                 GameSignals.Instance.OnGameRestart?.Invoke();
                 _isGameOver = false;
@@ -57,7 +57,7 @@ namespace Snake3D.Runtime.Managers
         
         private void OnPauseGame(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton() && _isGameOver)
+            if (context.ReadValueAsButton())
             {
                 if(!_isGameStarted) return;
                 if (_isGamePaused)
