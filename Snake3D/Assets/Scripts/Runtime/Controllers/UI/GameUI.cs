@@ -3,7 +3,7 @@ using Snake3D.Runtime.Signals;
 using TMPro;
 using UnityEngine;
 
-namespace Snake3D.Runtime.Controllers
+namespace Snake3D.Runtime.Controllers.UI
 {
     public class GameUI : MonoBehaviour
     {

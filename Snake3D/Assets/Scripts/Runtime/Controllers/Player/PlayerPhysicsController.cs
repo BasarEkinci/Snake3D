@@ -1,7 +1,7 @@
 using Snake3D.Runtime.Signals;
 using UnityEngine;
 
-namespace Snake3D.Runtime.Controllers
+namespace Snake3D.Runtime.Controllers.Player
 {
     public class PlayerPhysicsController : MonoBehaviour
     {

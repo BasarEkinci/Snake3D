@@ -3,7 +3,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Snake3D.Runtime.Controllers
+namespace Snake3D.Runtime.Controllers.Player
 {
     public class PlayerTailController : MonoBehaviour
     {
