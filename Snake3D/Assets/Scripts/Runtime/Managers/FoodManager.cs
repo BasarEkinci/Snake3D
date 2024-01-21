@@ -21,7 +21,6 @@ namespace Snake3D.Runtime.Managers
         private void Start()
         {
             transform.DOMoveY(transform.position.y + 0.5f,0.5f).SetLoops(-1,LoopType.Yoyo).SetEase(Ease.Linear);
-            transform.DORotate(Vector3.up * 45, 1f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental);
             transform.position = new Vector3(Random.Range(minX, maxX), 1, Random.Range(minZ, maxZ));
         }
 
@@ -30,9 +29,20 @@ namespace Snake3D.Runtime.Managers
             PlayerSignals.Instance.OnCollectFood -= OnCollectFood;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.CompareTag("Tail"))
+                SetPosition();
+        }
+
         private void OnCollectFood()
         {
             Instantiate(collectParticle, transform.position, Quaternion.identity);
+            SetPosition();
+        }
+        
+        private void SetPosition()
+        {
             Vector3 newPosition = new Vector3(Random.Range(minX, maxX), 1, Random.Range(minZ, maxZ));
             transform.position = newPosition;
         }

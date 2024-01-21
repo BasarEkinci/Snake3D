@@ -4162,8 +4162,8 @@ MonoBehaviour:
     type: 3}
   movementController: {fileID: 4128967756947774285}
   tailController: {fileID: 2164282989356803992}
-  moveSpeed: 8
-  rotateSpeed: 180
+  moveSpeed: 10
+  rotateSpeed: 270
 --- !u!1 &2005897695704171704
 GameObject:
   m_ObjectHideFlags: 0
@@ -4205,8 +4205,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.519526, z: 0.20343804}
-  m_Center: {x: 0, y: -0.240237, z: 0.5653031}
+  m_Size: {x: 1, y: 0.8173151, z: 0.20343804}
+  m_Center: {x: 0, y: -0.13682866, z: 0.5653031}
 --- !u!114 &2164282989356803992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4219,8 +4219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90f74b173e074287a2f3aa7ae13c4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gapBetweenParts: 10
-  bodySpeed: 8
+  gapBetweenParts: 20
+  bodySpeed: 10
   _bodyParts:
   - {fileID: 333843430}
 --- !u!4 &2805379752341773738

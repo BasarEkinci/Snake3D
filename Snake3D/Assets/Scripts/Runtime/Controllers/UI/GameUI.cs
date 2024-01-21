@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Snake3D.Runtime.Signals;
 using TMPro;
 using UnityEngine;
@@ -84,6 +85,8 @@ namespace Snake3D.Runtime.Controllers
                 _highScore = _score;
                 highScoreText.text = "HIGH SCORE:" + _highScore;
             }
+
+            scoreText.transform.DOScale(Vector3.one * 1.1f, 0.1f).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
         }
     }    
 }
