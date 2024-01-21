@@ -38,7 +38,7 @@ namespace Snake3D.Runtime.Managers
         
         private void OnStartGame(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton() && !_isGameStarted)
+            if (context.ReadValueAsButton() && !_isGameStarted && !_isGameOver)
             {
                 GameSignals.Instance.OnGameStart?.Invoke();
                 _isGameStarted = true;
