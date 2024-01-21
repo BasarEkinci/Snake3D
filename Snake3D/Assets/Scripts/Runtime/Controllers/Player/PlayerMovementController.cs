@@ -1,7 +1,7 @@
 using Snake3D.Runtime.Managers;
 using UnityEngine;
 
-namespace Runtime.Scripts.Controllers.Player
+namespace Snake3D.Runtime.Controllers.Player
 {
     public class PlayerMovementController : MonoBehaviour
     {

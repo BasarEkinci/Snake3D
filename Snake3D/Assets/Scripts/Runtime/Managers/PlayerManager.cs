@@ -1,5 +1,3 @@
-using Runtime.Scripts.Controllers.Player;
-using Snake3D.Runtime.Controllers;
 using Snake3D.Runtime.Controllers.Player;
 using Snake3D.Runtime.Signals;
 using UnityEngine;
