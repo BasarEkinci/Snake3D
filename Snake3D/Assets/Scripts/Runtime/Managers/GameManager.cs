@@ -9,6 +9,7 @@ namespace Snake3D.Runtime.Managers
         private PlayerInputs _playerInputs;
         private bool _isGamePaused;
         private bool _isGameStarted;
+        private bool _isGameOver;
 
         private void Awake()
         {
@@ -47,13 +48,16 @@ namespace Snake3D.Runtime.Managers
         private void OnRestartGame(InputAction.CallbackContext context)
         {
             if (context.ReadValueAsButton())
+            {
                 GameSignals.Instance.OnGameRestart?.Invoke();
+                _isGameOver = false;
+            }
             
         }
         
         private void OnPauseGame(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton())
+            if (context.ReadValueAsButton() && _isGameOver)
             {
                 if(!_isGameStarted) return;
                 if (_isGamePaused)
@@ -72,6 +76,7 @@ namespace Snake3D.Runtime.Managers
         private void OnGameOver()
         {
             _isGameStarted = false;
+            _isGameOver = true;
         }
     }
 }
